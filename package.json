@@ -1,0 +1,26 @@
+{
+  "name": "node-brain",
+  "version": "1.0.0",
+  "description": "node-brain is a useless library for creating stupid chat bots",
+  "author": "Paul Sauve <paul@burngames.net>",
+  "main": "./lib/node-brain.js",
+  "jsnext:main": "./src/Brain.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PaulBGD/node-brain"
+  },
+  "bugs": {
+    "url": "https://github.com/PaulBGD/node-brain/issues"
+  },
+  "keywords": ["ai", "brain", "learning"],
+  "license": "MIT",
+  "preferGlobal": false,
+  "scripts": {
+    "rollup": "rollup -c",
+    "prepublish": "rollup -c"
+  },
+  "devDependencies": {
+    "rollup": "^0.34.7",
+    "rollup-plugin-buble": "^0.12.1"
+  }
+}
