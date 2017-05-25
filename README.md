@@ -69,11 +69,6 @@ module.exports = { Brain, Quad, MemoryProvider }
 - `Quad#o1, Quad#o2, Quad#o3, Quad#o4`
 - `Quad#canEnd, Quad#canStart`
 
-## Sample Usages:
-
-- A really, really good random sentence generator
-- Dumb chat bots
-
 ## Providers
 
 ### MemoryProvider
@@ -86,3 +81,8 @@ module.exports = { Brain, Quad, MemoryProvider }
 
 - `new FileSystemProvider(directory: String)`
 - `fileSystemProvider.initialize(): Promise`
+
+## Sample Usages:
+
+- A really, really good random sentence generator
+- Dumb chat bots
