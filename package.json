@@ -1,6 +1,6 @@
 {
   "name": "node-brain",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "node-brain is a useless library for creating stupid chat bots",
   "author": "Paul Sauve <paul@burngames.net>",
   "main": "./src/index.js",

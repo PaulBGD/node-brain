@@ -33,31 +33,31 @@ export class FileSystemProvider {
 
     addQuad(quad) {
         return new Promise((resolve, reject) => {
-            writeFile(join(this.quadsDir, quad.toPartsString()), quad.toString(), 'utf8', error => error ? reject(error) : resolve());
+            writeFile(join(this.quadsDir, sanitize(quad.toPartsString())), quad.toString(), 'utf8', error => error ? reject(error) : resolve());
         });
     }
 
     addWord(quad, word) {
         return new Promise((resolve, reject) => {
-            appendFile(join(this.wordsDir, word), quad.toString() + '\n', 'utf8', error => error ? reject(error) : resolve());
+            appendFile(join(this.wordsDir, sanitize(word.toLowerCase())), quad.toString() + '\n', 'utf8', error => error ? reject(error) : resolve());
         });
     }
 
     addPrevious(quad, previous) {
         return new Promise((resolve, reject) => {
-            appendFile(join(this.previousDir, quad.toPartsString()), previous + '\n', 'utf8', error => error ? reject(error) : resolve());
+            appendFile(join(this.previousDir, sanitize(quad.toPartsString())), previous + '\n', 'utf8', error => error ? reject(error) : resolve());
         });
     }
 
     addNext(quad, next) {
         return new Promise((resolve, reject) => {
-            appendFile(join(this.nextDir, quad.toPartsString()), next + '\n', 'utf8', error => error ? reject(error) : resolve());
+            appendFile(join(this.nextDir, sanitize(quad.toPartsString())), next + '\n', 'utf8', error => error ? reject(error) : resolve());
         });
     }
 
     getMiddleQuad(word) {
         return new Promise((resolve, reject) => {
-            const wordFile = join(this.wordsDir, word);
+            const wordFile = join(this.wordsDir, sanitize(word.toLowerCase()));
 
             exists(wordFile, exists => {
                 if (exists) {
@@ -87,7 +87,7 @@ export class FileSystemProvider {
 
     getNextPossibleWord(quad) {
         return new Promise((resolve, reject) => {
-            const file = join(this.nextDir, quad.toPartsString());
+            const file = join(this.nextDir, sanitize(quad.toPartsString()));
 
             readFile(file, 'utf8', (error, contents) => {
                 if (error) {
@@ -100,7 +100,7 @@ export class FileSystemProvider {
 
     getPreviousPossibleWord(quad) {
         return new Promise((resolve, reject) => {
-            const file = join(this.previousDir, quad.toPartsString());
+            const file = join(this.previousDir, sanitize(quad.toPartsString()));
 
             readFile(file, 'utf8', (error, contents) => {
                 if (error) {
@@ -113,7 +113,7 @@ export class FileSystemProvider {
 
     getQuad(quad) {
         return new Promise((resolve, reject) => {
-            const file = join(this.quadsDir, quad.toPartsString());
+            const file = join(this.quadsDir, sanitize(quad.toPartsString()));
 
             readFile(file, 'utf8', (error, contents) => {
                 if (error) {
@@ -127,4 +127,8 @@ export class FileSystemProvider {
 
 function getRandom(array) {
     return array[ Math.floor(array.length * Math.random()) ];
+}
+
+function sanitize(filename) {
+    return Buffer.from(filename).toString('base64');
 }
