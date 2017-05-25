@@ -1,8 +1,12 @@
-const buble = require('rollup-plugin-buble');
+import buble from 'rollup-plugin-buble';
 
 export default {
-    entry: 'src/Brain.js',
+    external: [ 'fs', 'path' ],
+
+    entry: 'src/index.js',
     dest: 'lib/node-brain.js',
     format: 'cjs',
-    plugins: [buble()]
+    plugins: [
+        buble()
+    ]
 };

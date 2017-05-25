@@ -1,11 +1,10 @@
-import {MemoryProvider} from './MemoryProvider';
-import {Quad} from './Quad';
+import { MemoryProvider } from './MemoryProvider';
+import { Quad } from './Quad';
 
-export {Brain, Quad, MemoryProvider};
 
 const VALID_CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
 
-class Brain {
+export class Brain {
     constructor(options) {
         options = options || {};
 
@@ -28,7 +27,7 @@ class Brain {
         let punctuation = false;
         let str = '';
         while (i < sentence.length) {
-            var ch = sentence.charAt(i);
+            const ch = sentence.charAt(i);
             if ((this.VALID.indexOf(ch) >= 0) === punctuation) {
                 punctuation = !punctuation;
                 if (str.length > 0) {
@@ -54,7 +53,7 @@ class Brain {
         i = 0;
         const iLowEnough = () => i < parts.length - 3;
         const handleNewQuad = () => {
-            const quad = new Quad(parts[i], parts[i + 1], parts[i + 2], parts[i + 3]);
+            const quad = new Quad(parts[ i ], parts[ i + 1 ], parts[ i + 2 ], parts[ i + 3 ]);
             if (i === 0) {
                 quad.canStart = true;
             }
@@ -65,17 +64,17 @@ class Brain {
                 .then(() => {
                     let j = 0;
                     const jLowEnough = () => j < 4;
-                    const addWord = () => this.provider.addWord(quad, parts[i + j]).then(() => j++);
+                    const addWord = () => this.provider.addWord(quad, parts[ i + j ]).then(() => j++);
                     return promiseWhile(jLowEnough, addWord);
                 })
                 .then(() => {
                     if (!quad.canStart) {
-                        return this.provider.addPrevious(quad, parts[i - 1]);
+                        return this.provider.addPrevious(quad, parts[ i - 1 ]);
                     }
                 })
                 .then(() => {
                     if (!quad.canEnd) {
-                        return this.provider.addNext(quad, parts[i + 4]);
+                        return this.provider.addNext(quad, parts[ i + 4 ]);
                     }
                 })
                 .then(() => i++);
@@ -110,7 +109,7 @@ class Brain {
         return this.provider.getMiddleQuad(word)
             .then(theMiddleQuad => {
                 for (let i = 1; i <= 4; i++) {
-                    parts[i - 1] = theMiddleQuad[`o${i}`];
+                    parts[ i - 1 ] = theMiddleQuad[ `o${i}` ];
                 }
 
                 quad = middleQuad = theMiddleQuad;
@@ -155,4 +154,3 @@ function promiseWhile(condition, promise) {
     return Promise.resolve();
 }
 
-module.exports = Brain;

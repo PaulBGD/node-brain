@@ -76,4 +76,13 @@ module.exports = { Brain, Quad, MemoryProvider }
 
 ## Providers
 
-Currently the only provider provided is the MemoryProvider. However since all of the methods return a promise, you can in theory store the Brain's information in a database. In the future we may provide a separate package for SQL based databases.
+### MemoryProvider
+
+- `new MemoryProvider()`
+- `memoryProvider.toJSON()`
+- `memoryProvider.fromJSON(json: String)`
+
+### FileSystemProvider
+
+- `new FileSystemProvider(directory: String)`
+- `fileSystemProvider.initialize(): Promise`
