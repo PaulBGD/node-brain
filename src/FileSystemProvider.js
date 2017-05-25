@@ -130,5 +130,5 @@ function getRandom(array) {
 }
 
 function sanitize(filename) {
-    return Buffer.from(filename).toString('base64');
+    return Buffer.from(filename).toString('base64').replace(/\//g, '_');
 }
